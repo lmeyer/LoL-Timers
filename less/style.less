@@ -1,0 +1,100 @@
+@import "normalize.less";
+
+
+/* ===== Primary Styles ========================================================
+   Author: Ludovic Meyer
+   ========================================================================== */
+
+body{
+	background: #000 url("../img/bg.jpg") no-repeat center top;
+}
+
+.map{
+	&.rift{
+		background: url("../img/rift.png");
+		height: 770px;
+		margin: auto;
+		position: relative;
+		width: 770px;
+	}
+}
+
+.cd{
+	color: #fff;
+	cursor: pointer;
+	font-weight: bold;
+	height: 48px;
+	line-height: 48px;
+	position: absolute;
+	text-align: center;
+	width: 48px;
+	
+	&.red{
+		background: url("../img/red.png");
+	}
+	&.blue{
+		background: url("../img/blue.png");
+	}
+	&.dragon{
+		background: url("../img/dragon.png");
+	}
+	&.nashor{
+		background: url("../img/nashor.png");
+	}
+	&.wraiths{
+		background: url("../img/wraiths.png");
+	}
+	&.wolves{
+		background: url("../img/wolves.png");
+	}
+	
+	&#bred{
+		bottom: 214px;
+		right: 331px;
+	}
+	&#tred{
+		left: 350px;
+		top: 195px;
+	}
+	
+	&#bblue{
+		bottom: 400px;
+		left: 210px;
+	}
+	&#tblue{
+		right: 189px;
+		top: 383px;
+	}
+	
+	&#dragon{
+		bottom: 238px;
+		right: 235px;
+	}
+	&#nashor{
+		top: 210px;
+		left: 260px;
+	}
+	
+	&#bwraiths{
+		bottom: 282px;
+		right: 373px;
+	}
+	&#twraiths{
+		left: 390px;
+		top: 260px;
+	}
+	
+	&#bwolves{
+		bottom: 333px;
+		left: 221px;
+	}
+	&#twolves{
+		right: 197px;
+		top: 309px;
+	}
+}
+
+
+@import "media-queries.less";
+@import "helpers.less";
+@import "print.less";
