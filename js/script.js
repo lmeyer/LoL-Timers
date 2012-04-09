@@ -13,7 +13,10 @@ $(document).ready(function() {
 		red     : 300,
 
 		dragon  : 360,
-		nashor  : 420
+		nashor  : 420,
+		
+		ordertower: 300,
+		chaostower: 300
 	};
 	
 	$.countdown.setDefaults({
