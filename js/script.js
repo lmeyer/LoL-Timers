@@ -43,5 +43,14 @@ $(document).ready(function() {
 	function cdDestroy() { 
 		$(this).countdown('destroy'); 
 	}
+
+	window.setTimeout(function() {
+		var bubble = new google.bookmarkbubble.Bubble();
+		bubble.hasHashParameter = function() {
+		};
+		bubble.setHashParameter = function() {
+		};
+		bubble.showIfAllowed();
+	}, 1000);
 	
 });
