@@ -37,11 +37,13 @@ $(document).ready(function() {
 	function highlightLast10(periods) { 
 	    if ($.countdown.periodsToSeconds(periods) == 5) { 
 	        $(this).effect('pulsate', 1000);
+	        $(this).addClass('highlight');
 	    } 
 	}
 	
 	function cdDestroy() { 
-		$(this).countdown('destroy'); 
+		$(this).countdown('destroy');
+		$(this).removeClass('highlight');
 	}
 
 	window.setTimeout(function() {
