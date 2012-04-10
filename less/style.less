@@ -1,6 +1,4 @@
-@import "normalize.less";
-@import "boilerplate.less";
-
+@import "bootstrap/bootstrap.less";
 
 /* ===== Primary Styles ========================================================
    Author: Ludovic Meyer
@@ -20,6 +18,7 @@ body{
 	}
 	
 	.logo{
+		.hide-text;
 		background: url("../img/logo.png") no-repeat left top;
 		height: 100px;
 		left: 20px;
@@ -63,11 +62,11 @@ body{
 		background: url("../img/wraiths.png");
 	}
 	&.ordertower{
-		.borderRadius(24px);
+		.border-radius(24px);
 		background: url("../img/ordertower.png");
 	}
 	&.chaostower{
-		.borderRadius(24px);
+		.border-radius(24px);
 		background: url("../img/chaostower.png");
 	}
 	
@@ -168,7 +167,5 @@ footer{
 	}
 }
 
-
 @import "media-queries.less";
-@import "helpers.less";
 @import "print.less";
