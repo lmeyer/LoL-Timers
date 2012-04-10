@@ -82,14 +82,30 @@
 	</div>
 </div>
 <footer>
-	Brought to you by <a href="http://www.ludovicmeyer.com">Ludovic Meyer</a> and <a href="http://www.pixel-cookers.com">Pixel Cookers</a> | Hosted by <a href="https://github.com/lmeyer/LoL-Timers">Github</a>
+	Brought to you by <a href="http://www.ludovicmeyer.com">Ludovic Meyer</a> and <a href="http://www.pixel-cookers.com">Pixel Cookers</a> | Hosted by <a href="https://github.com/lmeyer/LoL-Timers">Github</a> | <a data-toggle="modal" href="#helpModal" href="">Help</a>
 </footer>
+
+<div class="modal fade" id="helpModal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Help</h3>
+  </div>
+  <div class="modal-body">
+  	<h2>How it works ?</h2>
+    <p>Click on a monster icon when you kill him. You will start a countdown timer that will indicate you when the monster will be up again.<br />In order to help you, the icon will pulsate during the last 5 seconds.</p>
+    <p>If you click on the map, you will create where you clicked a ward with a countdown timer</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Close</a>
+  </div>
+</div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 
-<script src="js/bookmark_bubble.js"></script>
+<script src="js/bootstrap-modal.js"></script>
+<script src="js/bookmark-bubble.js"></script>
 <script src="js/jquery.pulsate.js"></script>
 <script src="js/jquery.countdown.min.js"></script>
 <script src="js/script.js"></script>
