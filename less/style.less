@@ -21,17 +21,19 @@ body{
 		.hide-text;
 		background: url("../img/logo.png") no-repeat left top;
 		height: 100px;
-		left: 20px;
+		left: -80px;
 		margin: 0;
 		padding: 0;
 		position: absolute;
-		top: 15px;
+		top: 5px;
 		width: 200px;
 	}
 }
 
 .cd{
 	color: #fff;
+	background-position: center center;
+	background-repeat: no-repeat;
 	cursor: pointer;
 	font-weight: bold;
 	height: 48px;
@@ -41,10 +43,10 @@ body{
 	width: 48px;
 	
 	span{
-		background: rgba(255, 255, 255, 0.1);
+		background: rgba(0, 0, 0, 0.4);
 		display: block;
-		height: 48px;
-		width: 48px;
+		height: 100%;
+		width: 100%;
 	}
 	
 	&.highlight{
@@ -54,33 +56,50 @@ body{
 	}
 	
 	&.blue{
-		background: url("../img/blue.png");
+		background-image: url("../img/blue.png");
 	}
 	&.dragon{
-		background: url("../img/dragon.png");
+		background-image: url("../img/dragon.png");
 	}
 	&.golems{
-		background: url("../img/golems.png");
+		background-image: url("../img/golems.png");
 	}
 	&.nashor{
-		background: url("../img/nashor.png");
+		background-image: url("../img/nashor.png");
 	}
 	&.red{
-		background: url("../img/red.png");
+		background-image: url("../img/red.png");
 	}
 	&.wolves{
-		background: url("../img/wolves.png");
+		background-image: url("../img/wolves.png");
 	}
 	&.wraiths{
-		background: url("../img/wraiths.png");
+		background-image: url("../img/wraiths.png");
+	}
+	&.ordertower, &.chaostower{
+		.border-radius(24px);
+		span{
+			.border-radius(24px);
+		}
 	}
 	&.ordertower{
-		.border-radius(24px);
-		background: url("../img/ordertower.png");
+		background-image: url("../img/ordertower.png");
 	}
 	&.chaostower{
-		.border-radius(24px);
-		background: url("../img/chaostower.png");
+		background-image: url("../img/chaostower.png");
+	}
+	&.wards{
+		height: 24px;
+		color: darkred;
+		line-height: 24px;
+		width: 24px;
+		background-image: url("../img/wards.png");
+		span, &.highlight span {
+			background: none;
+		}
+		span{
+			margin: 20px 0 0 -3px;
+		}
 	}
 	
 	&#bblue{
