@@ -28,20 +28,25 @@ $(document).ready(function() {
 		onTick: highlightLast10,
 		onExpiry: cdDestroy
 	});
-
-
-	$(".cd").click(function() {
+	$(".map").on("click", 'div', function( e ){
+		console.log(e.wich);
+		if($(this).hasClass('pink')){
+			$(this).remove();
+		}
 		cdCreate($(this));
+		if($(this).hasClass('wards')){
+			$(this).addClass('pink');
+		}
 	});
 	
 	$(".map").click(function( e ) {
 		if(!$(e.target).hasClass('map')) return;
 		
-		var left = e.pageX-12;
-		var top = e.pageY-12;
+		var left = e.pageX - 12 - this.offsetLeft;
+		var top = e.pageY - 12 - this.offsetTop;
 		
 		var $new_ward = $('<div class="cd wards" style="left:'+left+'px;top:'+top+'px"></div>');
-		$("body").append($new_ward)
+		$(".map").append($new_ward)
 		cdCreate($new_ward);
 	});
 	
