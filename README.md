@@ -6,7 +6,7 @@ LoL Timers is a tool to calculate respawn time in jungle for the Game [League of
 
 - Timers for jungle monsters
 - Timers for inhibitors
-- Timers for green wards
+- Timers for green/pink wards
 
 ## The website
 
@@ -16,7 +16,8 @@ Please visit http://www.lol-timers.com
 
 1.1 (2012-06-05)
 - Ability to use pink wards (click on a green ward)
-- Ability to remove wards (click on a pink ward)
+- Ability to remove wards (click on a pink ward or rightclick)
+- Ability to reset monster countdown (rightclick)
 
 1.0 (2012-04-08)
 - Initial release

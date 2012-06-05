@@ -28,15 +28,25 @@ $(document).ready(function() {
 		onTick: highlightLast10,
 		onExpiry: cdDestroy
 	});
-	$(".map").on("click", 'div', function( e ){
-		console.log(e.wich);
-		if($(this).hasClass('pink')){
-			$(this).remove();
-		}
-		cdCreate($(this));
-		if($(this).hasClass('wards')){
-			$(this).addClass('pink');
-		}
+	$(".map").on("mousedown", '.cd', function( event ){
+		
+		switch (event.which) {
+	        case 3:
+	        	cdDestroy($(this));
+	        	if($(this).hasClass('wards')){
+	        		$(this).remove();
+	    		}
+	            break;
+	        default:
+	        	if($(this).hasClass('pink')){
+	    			$(this).remove();
+	    		}
+	    		cdCreate($(this));
+	    		if($(this).hasClass('wards')){
+	    			$(this).addClass('pink');
+	    		}
+	            break;
+	    }
 	});
 	
 	$(".map").click(function( e ) {
@@ -50,7 +60,7 @@ $(document).ready(function() {
 		cdCreate($new_ward);
 	});
 	
-	
+	$(".map").noContext();
 	
 	function highlightLast10(periods) { 
 	    if ($.countdown.periodsToSeconds(periods) == 5) { 
@@ -65,11 +75,13 @@ $(document).ready(function() {
 		});
 	}
 	
-	function cdDestroy() { 
-		$(this).countdown('destroy');
-		$(this).removeClass('highlight');
-		if($(this).hasClass('wards')){
-			$(this).fadeOutAndRemove('slow');
+	function cdDestroy(elem) {
+		if(elem == null ) elem = $(this);
+		
+		elem.countdown('destroy');
+		elem.removeClass('highlight');
+		if(elem.hasClass('wards')){
+			elem.fadeOutAndRemove('slow');
 		};
 	}
 
