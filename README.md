@@ -14,6 +14,10 @@ Please visit http://www.lol-timers.com
 
 ### Changelog
 
+1.2 (2013-03-17)
+- Add comments modal
+- jQuery and countdown libs updated
+
 1.1 (2012-06-05)
 - Ability to use pink wards (click on a green ward)
 - Ability to remove wards (click on a pink ward or rightclick)

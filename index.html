@@ -82,7 +82,7 @@
 	</div>
 </div>
 <footer>
-	Brought to you by <a href="http://www.ludovicmeyer.com">Ludovic Meyer</a> and <a href="http://www.pixel-cookers.com">Pixel Cookers</a> | Hosted by <a href="https://github.com/lmeyer/LoL-Timers">Github</a> | <a data-toggle="modal" href="#helpModal" href="">Help</a>
+	Brought to you by <a href="http://www.ludovicmeyer.com">Ludovic Meyer</a> and <a href="http://www.pixel-cookers.com">Pixel Cookers</a> | Hosted by <a href="https://github.com/lmeyer/LoL-Timers">Github</a> | <a data-toggle="modal" href="#helpModal" href="">Help</a> | <a data-toggle="modal" href="#commentModal" href="">Comments</a>
 </footer>
 
 <div class="modal fade" id="helpModal">
@@ -106,10 +106,31 @@
   </div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+<div class="modal fade" id="commentModal">
+    <div class="modal-body">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'loltimers'; // required: replace example with your forum shortname
 
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
+    <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn">Close</a>
+    </div>
+</div>
+
+<script src="js/libs/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 <script src="js/bootstrap-modal.js"></script>
 <script src="js/bookmark-bubble.js"></script>
 <script src="js/jquery.pulsate.js"></script>
