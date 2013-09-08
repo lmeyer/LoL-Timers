@@ -17,6 +17,13 @@ $(document).ready(function() {
 		
 		ordertower: 300,
 		chaostower: 300,
+
+		buffs     :
+		{
+			blue  : 150,
+			red   : 150,
+			nashor: 240
+		},
 		
 		wards     : 180,
 		explorers : 60
@@ -54,14 +61,18 @@ $(document).ready(function() {
 	    		}
 	            break;
 	        default:
-		        cdCreate($(this));
+		        if($(this).hasClass('blue') || $(this).hasClass('nashor') || $(this).hasClass('red')){
+			        $(this).addClass('buff');
+		        }
 	        	if($(this).hasClass('explorer')){
 	    			$(this).remove();
 	    		} else if($(this).hasClass('pink')){
 			        $(this).addClass('explorer');
+			        $(this).attr('attr-cd', 'explorers');
 		        }else if($(this).hasClass('wards')){
 	    			$(this).addClass('pink');
 	    		}
+		        cdCreate($(this));
 	            break;
 	    }
 	});
@@ -72,7 +83,7 @@ $(document).ready(function() {
 		var left = e.pageX - 12 - this.offsetLeft;
 		var top = e.pageY - 12 - this.offsetTop;
 
-		var new_ward = $('<div class="cd wards" style="left:'+left+'px;top:'+top+'px"></div>');
+		var new_ward = $('<div class="cd wards" attr-cd="wards" style="left:'+left+'px;top:'+top+'px"></div>');
 		var new_wardup = $('#wardup').clone();
 
 		if(!$.cookie('mute')) {
@@ -84,7 +95,14 @@ $(document).ready(function() {
 	
 	$(".map").noContext();
 	
-	function highlightLast10(periods) { 
+	function highlightLast10(periods) {
+		var buff = timers['buffs'][$(this).attr('attr-cd')];
+		if( buff !== undefined) {
+			if ($.countdown.periodsToSeconds(periods) == timers[$(this).attr('attr-cd')]-buff) {
+				$(this).removeClass('buff');
+			}
+		}
+
 	    if ($.countdown.periodsToSeconds(periods) == 5) { 
 	        $(this).effect('pulsate', 1000);
         	$(this).addClass('highlight');
@@ -92,17 +110,7 @@ $(document).ready(function() {
 	}
 	
 	function cdCreate(elem) {
-		var time = timers[ elem.attr('class').substr(3) ];
-
-		//If time is not defined, it's surely a ward
-		if(time === undefined) {
-			if(elem.hasClass('wards')) {
-				time = timers['wards'];
-			}
-			if(elem.hasClass('pink')) {
-				time = timers['explorers'];
-			}
-		}
+		var time = timers[ elem.attr('attr-cd') ];
 
 		elem.countdown('destroy').countdown({
 			until: +time
