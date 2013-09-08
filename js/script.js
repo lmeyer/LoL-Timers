@@ -18,7 +18,8 @@ $(document).ready(function() {
 		ordertower: 300,
 		chaostower: 300,
 		
-		wards     : 180
+		wards     : 180,
+		explorers : 60
 	};
 	
 	$.countdown.setDefaults({
@@ -44,7 +45,7 @@ $(document).ready(function() {
 	});
 
 	$(".map").on("mousedown", '.cd', function( event ){
-		
+
 		switch (event.which) {
 	        case 3:
 	        	cdDestroy($(this));
@@ -53,11 +54,12 @@ $(document).ready(function() {
 	    		}
 	            break;
 	        default:
-	        	if($(this).hasClass('pink')){
+		        cdCreate($(this));
+	        	if($(this).hasClass('explorer')){
 	    			$(this).remove();
-	    		}
-	    		cdCreate($(this));
-	    		if($(this).hasClass('wards')){
+	    		} else if($(this).hasClass('pink')){
+			        $(this).addClass('explorer');
+		        }else if($(this).hasClass('wards')){
 	    			$(this).addClass('pink');
 	    		}
 	            break;
@@ -90,14 +92,27 @@ $(document).ready(function() {
 	}
 	
 	function cdCreate(elem) {
+		var time = timers[ elem.attr('class').substr(3) ];
+
+		//If time is not defined, it's surely a ward
+		if(time === undefined) {
+			if(elem.hasClass('wards')) {
+				time = timers['wards'];
+			}
+			if(elem.hasClass('pink')) {
+				time = timers['explorers'];
+			}
+		}
+
 		elem.countdown('destroy').countdown({
-			until: +timers[ elem.attr('class').substr(3) ]
+			until: +time
 		});
 	}
 
 	function timesUp(elem) {
 		if(elem == null ) elem = $(this);
 
+		//Play sound before destroy the countdown
 		if(!$.cookie('mute')) {
 			if(elem.hasClass('wards')) {
 				var new_warddown = $('#warddown').clone();

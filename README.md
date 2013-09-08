@@ -18,6 +18,7 @@ Please visit http://www.lol-timers.com
 - Timers duration updated according to new Jungle
 - Sounds when a timers ends up (wards and monsters sounds are different)
 - Ability to mute/unmute sounds
+- Ability to use blue (explorer) wards (click on a pink ward)
 
 1.2 (2013-03-17)
 - Add comments modal
