@@ -14,6 +14,11 @@ Please visit http://www.lol-timers.com
 
 ### Changelog
 
+1.3 (2013-09-08)
+- Timers duration updated according to new Jungle
+- Sounds when a timers ends up (wards and monsters sounds are different)
+- Ability to mute/unmute sounds
+
 1.2 (2013-03-17)
 - Add comments modal
 - jQuery and countdown libs updated
