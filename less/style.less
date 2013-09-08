@@ -5,201 +5,214 @@
    ========================================================================== */
 
 body{
-	background: #000 url("../img/bg.jpg") no-repeat center top;
+  background: #000 url("../img/bg.jpg") no-repeat center top;
 }
 
 .map{
-	&.rift{
-		background: url("../img/rift.png");
-		height: 770px;
-		margin: auto;
-		position: relative;
-		width: 770px;
-	}
-	
-	.logo{
-		.hide-text;
-		background: url("../img/logo.png") no-repeat left top;
-		height: 100px;
-		left: -80px;
-		margin: 0;
-		padding: 0;
-		position: absolute;
-		top: 5px;
-		width: 200px;
-	}
+  &.rift{
+    background: url("../img/rift.png");
+    height: 770px;
+    margin: auto;
+    position: relative;
+    width: 770px;
+  }
+
+  .logo{
+    .hide-text;
+    background: url("../img/logo.png") no-repeat left top;
+    height: 100px;
+    left: -80px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 5px;
+    width: 200px;
+  }
+
+  .sound-control {
+    .square(32px);
+    background: url("../img/unmuted.png") no-repeat center center;
+    cursor: pointer;
+    position: absolute;
+    right: 57px;
+    top: 42px;
+
+    &.muted {
+      background-image: url("../img/muted.png");
+    }
+  }
 }
 
 .cd{
-	color: #fff;
-	background-position: center center;
-	background-repeat: no-repeat;
-	cursor: pointer;
-	font-weight: bold;
-	height: 48px;
-	line-height: 48px;
-	position: absolute;
-	text-align: center;
-	width: 48px;
-	
-	span{
-		background: rgba(0, 0, 0, 0.4);
-		display: block;
-		height: 100%;
-		width: 100%;
-	}
-	
-	&.highlight{
-		span{
-			background: rgba(255, 0, 0, 0.3);
-		}
-	}
-	
-	&.blue{
-		background-image: url("../img/blue.png");
-	}
-	&.dragon{
-		background-image: url("../img/dragon.png");
-	}
-	&.golems{
-		background-image: url("../img/golems.png");
-	}
-	&.nashor{
-		background-image: url("../img/nashor.png");
-	}
-	&.red{
-		background-image: url("../img/red.png");
-	}
-	&.wolves{
-		background-image: url("../img/wolves.png");
-	}
-	&.wraiths{
-		background-image: url("../img/wraiths.png");
-	}
-	&.ordertower, &.chaostower{
-		.border-radius(24px);
-		span{
-			.border-radius(24px);
-		}
-	}
-	&.ordertower{
-		background-image: url("../img/ordertower.png");
-	}
-	&.chaostower{
-		background-image: url("../img/chaostower.png");
-	}
-	&.wards{
-		height: 24px;
-		color: darkred;
-		line-height: 24px;
-		width: 24px;
-		background-image: url("../img/wards.png");
-		&.pink{
-			background-image: url("../img/pinks.png");
-		}
-		span, &.highlight span {
-			background: none;
-		}
-		span{
-			margin: 20px 0 0 -3px;
-		}
-	}
-	
-	&#bblue{
-		bottom: 400px;
-		left: 210px;
-	}
-	&#tblue{
-		right: 189px;
-		top: 383px;
-	}
-	
-	&#dragon{
-		bottom: 238px;
-		right: 235px;
-	}
-	
-	&#bgolems{
-		bottom: 140px;
-		left: 425px;
-	}
-	&#tgolems{
-		right: 400px;
-		top: 120px;
-	}
-	
-	&#nashor{
-		top: 210px;
-		left: 260px;
-	}
-	
-	&#bred{
-		bottom: 214px;
-		right: 331px;
-	}
-	&#tred{
-		left: 350px;
-		top: 195px;
-	}
-	
-	&#bwolves{
-		bottom: 333px;
-		left: 221px;
-	}
-	&#twolves{
-		right: 197px;
-		top: 309px;
-	}
-	
-	&#bwraiths{
-		bottom: 282px;
-		right: 373px;
-	}
-	&#twraiths{
-		left: 390px;
-		top: 260px;
-	}
-	
-	&#chaostower1{
-		right: 78px;
-		top: 162px;
-	}
-	&#chaostower2{
-		right: 168px;
-		top: 144px;
-	}
-	&#chaostower3{
-		right: 180px;
-		top: 60px;
-	}
-	
-	&#ordertower1{
-		bottom: 192px;
-		left: 97px;
-	}
-	&#ordertower2{
-		bottom: 176px;
-		left: 183px;
-	}
-	&#ordertower3{
-		bottom: 85px;
-		left: 198px;
-	}
+  color: #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  font-weight: bold;
+  height: 48px;
+  line-height: 48px;
+  position: absolute;
+  text-align: center;
+  width: 48px;
+
+  span{
+    background: rgba(0, 0, 0, 0.4);
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  &.highlight{
+    span{
+      background: rgba(255, 0, 0, 0.3);
+    }
+  }
+
+  &.blue{
+    background-image: url("../img/blue.png");
+  }
+  &.dragon{
+    background-image: url("../img/dragon.png");
+  }
+  &.golems{
+    background-image: url("../img/golems.png");
+  }
+  &.nashor{
+    background-image: url("../img/nashor.png");
+  }
+  &.red{
+    background-image: url("../img/red.png");
+  }
+  &.wolves{
+    background-image: url("../img/wolves.png");
+  }
+  &.wraiths{
+    background-image: url("../img/wraiths.png");
+  }
+  &.ordertower, &.chaostower{
+    .border-radius(24px);
+    span{
+      .border-radius(24px);
+    }
+  }
+  &.ordertower{
+    background-image: url("../img/ordertower.png");
+  }
+  &.chaostower{
+    background-image: url("../img/chaostower.png");
+  }
+  &.wards{
+    height: 24px;
+    color: darkred;
+    line-height: 24px;
+    width: 24px;
+    background-image: url("../img/wards.png");
+    &.pink{
+      background-image: url("../img/pinks.png");
+    }
+    span, &.highlight span {
+      background: none;
+    }
+    span{
+      margin: 20px 0 0 -3px;
+    }
+  }
+
+  &#bblue{
+    bottom: 400px;
+    left: 210px;
+  }
+  &#tblue{
+    right: 189px;
+    top: 383px;
+  }
+
+  &#dragon{
+    bottom: 238px;
+    right: 235px;
+  }
+
+  &#bgolems{
+    bottom: 140px;
+    left: 425px;
+  }
+  &#tgolems{
+    right: 400px;
+    top: 120px;
+  }
+
+  &#nashor{
+    top: 210px;
+    left: 260px;
+  }
+
+  &#bred{
+    bottom: 214px;
+    right: 331px;
+  }
+  &#tred{
+    left: 350px;
+    top: 195px;
+  }
+
+  &#bwolves{
+    bottom: 333px;
+    left: 221px;
+  }
+  &#twolves{
+    right: 197px;
+    top: 309px;
+  }
+
+  &#bwraiths{
+    bottom: 282px;
+    right: 373px;
+  }
+  &#twraiths{
+    left: 390px;
+    top: 260px;
+  }
+
+  &#chaostower1{
+    right: 78px;
+    top: 162px;
+  }
+  &#chaostower2{
+    right: 168px;
+    top: 144px;
+  }
+  &#chaostower3{
+    right: 180px;
+    top: 60px;
+  }
+
+  &#ordertower1{
+    bottom: 192px;
+    left: 97px;
+  }
+  &#ordertower2{
+    bottom: 176px;
+    left: 183px;
+  }
+  &#ordertower3{
+    bottom: 85px;
+    left: 198px;
+  }
 }
 
 footer{
-	color: #888;
-	font-size: 12px;
-	text-align: center;
-	
-	a{
-		color: #1292b9;
-		text-decoration: none;
-		&:hover{
-			color: #1292b9;
-			text-decoration: underline;
-		}
-	}
+  color: #888;
+  font-size: 12px;
+  text-align: center;
+
+  a{
+    color: #1292b9;
+    text-decoration: none;
+    &:hover{
+      color: #1292b9;
+      text-decoration: underline;
+    }
+  }
 }
 
 @import "media-queries.less";

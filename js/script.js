@@ -6,8 +6,8 @@ $(document).ready(function() {
 
 	var timers = {
 		wraiths   : 50,
-		wolves    : 60,
-		golems    : 60,
+		wolves    : 50,
+		golems    : 50,
 
 		blue      : 300,
 		red       : 300,
@@ -26,8 +26,23 @@ $(document).ready(function() {
 		format: 'MS',
 		description: '',
 		onTick: highlightLast10,
-		onExpiry: cdDestroy
+		onExpiry: timesUp
 	});
+
+	if($.cookie('mute')) {
+		$('.sound-control').addClass('muted');
+	}
+
+	$('.sound-control').on("click", function(){
+		if($.cookie('mute')) {
+			$('.sound-control').removeClass('muted');
+			$.removeCookie('mute');
+		} else {
+			$('.sound-control').addClass('muted');
+			$.cookie('mute', 'on');
+		}
+	});
+
 	$(".map").on("mousedown", '.cd', function( event ){
 		
 		switch (event.which) {
@@ -54,10 +69,15 @@ $(document).ready(function() {
 		
 		var left = e.pageX - 12 - this.offsetLeft;
 		var top = e.pageY - 12 - this.offsetTop;
-		
-		var $new_ward = $('<div class="cd wards" style="left:'+left+'px;top:'+top+'px"></div>');
-		$(".map").append($new_ward)
-		cdCreate($new_ward);
+
+		var new_ward = $('<div class="cd wards" style="left:'+left+'px;top:'+top+'px"></div>');
+		var new_wardup = $('#wardup').clone();
+
+		if(!$.cookie('mute')) {
+			new_wardup.get(0).play();
+		}
+		$(".map").append(new_ward);
+		cdCreate(new_ward);
 	});
 	
 	$(".map").noContext();
@@ -74,10 +94,25 @@ $(document).ready(function() {
 			until: +timers[ elem.attr('class').substr(3) ]
 		});
 	}
+
+	function timesUp(elem) {
+		if(elem == null ) elem = $(this);
+
+		if(!$.cookie('mute')) {
+			if(elem.hasClass('wards')) {
+				var new_warddown = $('#warddown').clone();
+				new_warddown.get(0).play();
+			} else {
+				var new_timesup = $('#timesup').clone();
+				new_timesup.get(0).play();
+			}
+		}
+		cdDestroy(elem);
+	}
 	
 	function cdDestroy(elem) {
 		if(elem == null ) elem = $(this);
-		
+
 		elem.countdown('destroy');
 		elem.removeClass('highlight');
 		if(elem.hasClass('wards')){

@@ -53,6 +53,7 @@
 <div role="main">
 	<div class="map rift">
 		<h1 class="ir logo">League of Legends Timers</h1>
+		<div class="sound-control"></div>
 		<div id="bblue" class="cd blue"></div>
 		<div id="tblue" class="cd blue"></div>
 		
@@ -94,12 +95,15 @@
   	<h2>How it works ?</h2>
   	<h3>Monsters</h3>
     <p>Click on a monster icon when you kill him. You will start a countdown timer that will indicate you when the monster will be up again.<br />In order to help you, the icon will pulsate during the last 5 seconds.</p>
+    <p>Right click on a monster will remove the timer.</p>
   	<h3>Wards</h3>
   	<ol>
 	    <li>If you click on the map, you will create where you clicked a ward with a countdown timer</li>
 	    <li>If you click on a green ward, you will create a pink ward</li>
 	    <li>If you click on a pink ward, you will remove the ward</li>
     </ol>
+    <h3>Sounds</h3>
+    <p>A sound control is available at the top right of the map. Your choice is saved in a Cookie.</p>
   </div>
   <div class="modal-footer">
     <a href="#" data-dismiss="modal" class="btn">Close</a>
@@ -129,6 +133,19 @@
     </div>
 </div>
 
+<audio class="sounds" id="timesup" preload="auto">
+    <source type="audio/ogg" src="sounds/timesup.ogg"/>
+    <source type="audio/mp3" src="sounds/timesup.mp3"/>
+</audio>
+<audio class="sounds" id="warddown" preload="auto">
+    <source type="audio/ogg" src="sounds/warddown.ogg"/>
+    <source type="audio/mp3" src="sounds/warddown.mp3"/>
+</audio>
+<audio class="sounds" id="wardup" preload="auto">
+    <source type="audio/ogg" src="sounds/wardup.ogg"/>
+    <source type="audio/mp3" src="sounds/wardup.mp3"/>
+</audio>
+
 <script src="js/libs/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 <script src="js/bootstrap-modal.js"></script>
@@ -136,6 +153,7 @@
 <script src="js/jquery.pulsate.js"></script>
 <script src="js/jquery.countdown.min.js"></script>
 <script src="js/jquery.rightClick.js"></script>
+<script src="js/jquery.cookie.js"></script>
 <script src="js/script.js"></script>
 
 </body>
