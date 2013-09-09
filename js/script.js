@@ -1,160 +1,217 @@
 /* Author: Ludovic Meyer
-
  */
 
-$(document).ready(function() {
+(function($){
+	var socket = io.connect('http://localhost:8080');
 
-	var timers = {
-		wraiths   : 50,
-		wolves    : 50,
-		golems    : 50,
+	$(document).ready(function() {
 
-		blue      : 300,
-		red       : 300,
+		var room = window.location.hash;
 
-		dragon    : 360,
-		nashor    : 420,
-		
-		ordertower: 300,
-		chaostower: 300,
+		/**
+		 * Defaults and parameters
+		 * @type {{wraiths: number, wolves: number, golems: number, blue: number, red: number, dragon: number, nashor: number, ordertower: number, chaostower: number, buffs: {blue: number, red: number, nashor: number}, wards: number, explorers: number}}
+		 */
+		var timers = {
+			wraiths   : 50,
+			wolves    : 50,
+			golems    : 50,
 
-		buffs     :
-		{
-			blue  : 150,
-			red   : 150,
-			nashor: 240
-		},
-		
-		wards     : 180,
-		explorers : 60
-	};
-	
-	$.countdown.setDefaults({
-		compact: true, 
-		format: 'MS',
-		description: '',
-		onTick: highlightLast10,
-		onExpiry: timesUp
-	});
+			blue      : 300,
+			red       : 300,
 
-	if($.cookie('mute')) {
-		$('.sound-control').addClass('muted');
-	}
+			dragon    : 360,
+			nashor    : 420,
 
-	$('.sound-control').on("click", function(){
-		if($.cookie('mute')) {
-			$('.sound-control').removeClass('muted');
-			$.removeCookie('mute');
-		} else {
-			$('.sound-control').addClass('muted');
-			$.cookie('mute', 'on');
-		}
-	});
+			ordertower: 300,
+			chaostower: 300,
 
-	$(".map").on("mousedown", '.cd', function( event ){
+			buffs     :
+			{
+				blue  : 150,
+				red   : 150,
+				nashor: 240
+			},
 
-		switch (event.which) {
-	        case 3:
-	        	cdDestroy($(this));
-	        	if($(this).hasClass('wards')){
-	        		$(this).remove();
-	    		}
-	            break;
-	        default:
-		        if($(this).hasClass('blue') || $(this).hasClass('nashor') || $(this).hasClass('red')){
-			        $(this).addClass('buff');
-		        }
-	        	if($(this).hasClass('explorer')){
-	    			$(this).remove();
-	    		} else if($(this).hasClass('pink')){
-			        $(this).addClass('explorer');
-			        $(this).attr('attr-cd', 'explorers');
-		        }else if($(this).hasClass('wards')){
-	    			$(this).addClass('pink');
-	    		}
-		        cdCreate($(this));
-	            break;
-	    }
-	});
-	
-	$(".map").click(function( e ) {
-		if(!$(e.target).hasClass('map')) return;
-		
-		var left = e.pageX - 12 - this.offsetLeft;
-		var top = e.pageY - 12 - this.offsetTop;
+			wards     : 180,
+			explorers : 60
+		};
 
-		var new_ward = $('<div class="cd wards" attr-cd="wards" style="left:'+left+'px;top:'+top+'px"></div>');
-		var new_wardup = $('#wardup').clone();
-
-		if(!$.cookie('mute')) {
-			new_wardup.get(0).play();
-		}
-		$(".map").append(new_ward);
-		cdCreate(new_ward);
-	});
-	
-	$(".map").noContext();
-	
-	function highlightLast10(periods) {
-		var buff = timers['buffs'][$(this).attr('attr-cd')];
-		if( buff !== undefined) {
-			if ($.countdown.periodsToSeconds(periods) == timers[$(this).attr('attr-cd')]-buff) {
-				$(this).removeClass('buff');
-			}
-		}
-
-	    if ($.countdown.periodsToSeconds(periods) == 5) { 
-	        $(this).effect('pulsate', 1000);
-        	$(this).addClass('highlight');
-	    } 
-	}
-	
-	function cdCreate(elem) {
-		var time = timers[ elem.attr('attr-cd') ];
-
-		elem.countdown('destroy').countdown({
-			until: +time
+		$.countdown.setDefaults({
+			compact: true,
+			format: 'MS',
+			description: '',
+			onTick: highlightLast10,
+			onExpiry: timesUp
 		});
-	}
 
-	function timesUp(elem) {
-		if(elem == null ) elem = $(this);
+		$(".map").noContext();
 
-		//Play sound before destroy the countdown
-		if(!$.cookie('mute')) {
-			if(elem.hasClass('wards')) {
-				var new_warddown = $('#warddown').clone();
-				new_warddown.get(0).play();
+		/**
+		 * Sound Control
+		 */
+		if($.cookie('mute')) {
+			$('.sound-control').addClass('muted');
+		}
+		$('.sound-control').on("click", function(){
+			if($.cookie('mute')) {
+				$('.sound-control').removeClass('muted');
+				$.removeCookie('mute');
 			} else {
-				var new_timesup = $('#timesup').clone();
-				new_timesup.get(0).play();
+				$('.sound-control').addClass('muted');
+				$.cookie('mute', 'on');
+			}
+		});
+
+		/**
+		 * Countdown Control
+		 */
+		$(".map").on("mousedown", '.cd', function( event ){
+			socket.emit('launchCd', {
+				clickType: event.which,
+				elemId   : $(this).attr('id'),
+				room     : room
+			});
+			launchCd(event.which, $(this).attr('id'));
+		});
+
+		$(".map").click(function( event ) {
+			var id = (new Date).getTime();
+			socket.emit('createWard', {
+				canCreate: $(event.target).hasClass('map'),
+				id     : id,
+				pageX  : event.pageX,
+				pageY  : event.pageY,
+				offsetLeft : this.offsetLeft,
+				offsetTop: this.offsetTop
+			});
+			createWard( $(event.target).hasClass('map'), id, event.pageX, event.pageY, this.offsetLeft, this.offsetTop );
+		});
+
+		function launchCd(clickType, elemId) {
+			var elem = $('#' + elemId);
+			switch (clickType) {
+				case 3:
+					cdDestroy(elem);
+					if(elem.hasClass('wards')){
+						elem.remove();
+					}
+					break;
+				default:
+					if(elem.hasClass('blue') || elem.hasClass('nashor') || elem.hasClass('red')){
+						elem.addClass('buff');
+					}
+					if(elem.hasClass('explorer')){
+						elem.remove();
+					} else if(elem.hasClass('pink')){
+						elem.addClass('explorer');
+						elem.attr('attr-cd', 'explorers');
+					}else if(elem.hasClass('wards')){
+						elem.addClass('pink');
+					}
+					cdCreate(elem);
+					break;
 			}
 		}
-		cdDestroy(elem);
-	}
-	
-	function cdDestroy(elem) {
-		if(elem == null ) elem = $(this);
 
-		elem.countdown('destroy');
-		elem.removeClass('highlight');
-		if(elem.hasClass('wards')){
-			elem.fadeOutAndRemove('slow');
-		};
-	}
+		function createWard ( canCreate, id, pageX, pageY, offsetLeft, offsetTop ) {
+			if(!canCreate) return;
 
-	window.setTimeout(function() {
-		var bubble = new google.bookmarkbubble.Bubble();
-		bubble.hasHashParameter = function() {
-		};
-		bubble.setHashParameter = function() {
-		};
-		bubble.showIfAllowed();
-	}, 1000);
-	
-	jQuery.fn.fadeOutAndRemove = function(speed){
-	    $(this).fadeOut(speed,function(){
-	        $(this).remove();
-	    })
-	}
-});
+			var left = pageX - 12 - offsetLeft;
+			var top = pageY - 12 - offsetTop;
+
+			var new_ward = $('<div class="cd wards" id="'+id+'" attr-cd="wards" style="left:'+left+'px;top:'+top+'px"></div>');
+			var new_wardup = $('#wardup').clone();
+
+			if(!$.cookie('mute')) {
+				new_wardup.get(0).play();
+			}
+			$(".map").append(new_ward);
+			cdCreate(new_ward);
+		}
+
+		function highlightLast10(periods) {
+			var buff = timers['buffs'][$(this).attr('attr-cd')];
+			if( buff !== undefined) {
+				if ($.countdown.periodsToSeconds(periods) == timers[$(this).attr('attr-cd')]-buff) {
+					$(this).removeClass('buff');
+				}
+			}
+
+			if ($.countdown.periodsToSeconds(periods) == 5) {
+				$(this).effect('pulsate', 1000);
+				$(this).addClass('highlight');
+			}
+		}
+
+		function cdCreate(elem) {
+			var time = timers[ elem.attr('attr-cd') ];
+
+			elem.countdown('destroy').countdown({
+				until: +time
+			});
+		}
+
+		function timesUp(elem) {
+			if(elem == null ) elem = $(this);
+
+			//Play sound before destroy the countdown
+			if(!$.cookie('mute')) {
+				if(elem.hasClass('wards')) {
+					var new_warddown = $('#warddown').clone();
+					new_warddown.get(0).play();
+				} else {
+					var new_timesup = $('#timesup').clone();
+					new_timesup.get(0).play();
+				}
+			}
+			cdDestroy(elem);
+		}
+
+		function cdDestroy(elem) {
+			if(elem == null ) elem = $(this);
+
+			elem.countdown('destroy');
+			elem.removeClass('highlight');
+			if(elem.hasClass('wards')){
+				elem.fadeOutAndRemove('slow');
+			};
+		}
+
+		/**
+		 * Mobile Custom
+		 */
+		window.setTimeout(function() {
+			var bubble = new google.bookmarkbubble.Bubble();
+			bubble.hasHashParameter = function() {
+			};
+			bubble.setHashParameter = function() {
+			};
+			bubble.showIfAllowed();
+		}, 1000);
+
+		jQuery.fn.fadeOutAndRemove = function(speed){
+			$(this).fadeOut(speed,function(){
+				$(this).remove();
+			})
+		}
+
+		/**
+		 * Sockets Control
+		 */
+
+		socket.on('connect', function() {
+			socket.emit('room', room);
+		});
+
+		socket.on('connected', function(connected){
+			$('#connected').html(connected);
+		});
+		socket.on('launchCd', function(data){
+			launchCd(data.clickType, data.elemId);
+		});
+		socket.on('createWard', function(data){
+			createWard( data.canCreate, data.id, data.pageX, data.pageY, data.offsetLeft, data.offsetTop );
+		});
+	});
+})(jQuery);
