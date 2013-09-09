@@ -4,3 +4,4 @@
 /.project
 /.idea
 /node_modules
+vhost.conf
