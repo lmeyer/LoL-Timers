@@ -2,11 +2,11 @@
  */
 
 (function($){
-	var socket = io.connect('http://localhost:8080');
+	var socket = io.connect('http://' + $(location).attr('host') + ':8080');
 
 	$(document).ready(function() {
 
-		var room = window.location.hash;
+		var room = $(location).attr('hash');
 
 		/**
 		 * Defaults and parameters
@@ -172,7 +172,7 @@
 			if(elem == null ) elem = $(this);
 
 			elem.countdown('destroy');
-			elem.removeClass('highlight');
+			elem.removeClass('highlight').removeClass('buff');
 			if(elem.hasClass('wards')){
 				elem.fadeOutAndRemove('slow');
 			};

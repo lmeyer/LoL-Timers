@@ -1,0 +1,6 @@
+{
+  "name": "lol-timers",
+  "dependencies": {
+    "socket.io": "*"
+  }
+}
