@@ -3,7 +3,7 @@
 
 var io = require('socket.io').listen(8080)
 var connected = {};
-
+var default_room = 'default';
 io.sockets.on('connection', function (socket) {
 
 	/**
@@ -26,7 +26,12 @@ io.sockets.on('connection', function (socket) {
 			connected[room] = connected[room]-1
 		}
 
+		if(room == '' || room == '#helpModal' || room == '#commentModal' || room == '#syncModal') {
+			room = default_room;
+		}
 		socket.room = room;
+		console.log(socket.room);
+
 
 		if(!connected[socket.room]) {
 			connected[socket.room] = 0;
@@ -42,12 +47,12 @@ io.sockets.on('connection', function (socket) {
 	 */
 
 	socket.on('launchCd', function(data){
-		if(socket.room != '') {
+		if(socket.room != default_room) {
 			socket.broadcast.to(socket.room).emit('launchCd', data);
 		}
 	});
 	socket.on('createWard', function(data){
-		if(socket.room != '') {
+		if(socket.room != default_room) {
 			socket.broadcast.to(socket.room).emit('createWard', data);
 		}
 	});

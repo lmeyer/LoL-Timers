@@ -64,6 +64,36 @@
 		});
 
 		/**
+		 * Rooms Control
+		 */
+		$('#generate-sync-url').on('click', function(event){
+			event.preventDefault();
+			var url =  $(location).attr('protocol') + '//' +  $(location).attr('host') + $(location).attr('pathname') + '#' + Math.random().toString(36).substr(2, 7);
+			$('#sync-url').attr('href', url).html(url).fadeIn();
+		});
+		$('#sync-url').on('click', function(event){
+			event.preventDefault();
+			window.location.href = $(this).attr('href');
+			location.reload();
+		});
+
+		if(room == '' || room == '#helpModal' || room == '#commentModal' || room == '#syncModal') {
+			$('#qrcode-public').show();
+		} else {
+			$('#private-instance').show();
+			$('#sync-url').attr('href', $(location)).html($(location).attr('href')).show();
+			$('#generate-sync-url').hide();
+			var qrcode = new QRCode("qrcode", {
+				width: 128,
+				height: 128,
+				colorDark : "#333333",
+				colorLight : "#ffffff",
+				correctLevel : QRCode.CorrectLevel.H
+			});
+			qrcode.makeCode($(location).attr('href'));
+		}
+
+		/**
 		 * Countdown Control
 		 */
 		$(".map").on("mousedown", '.cd', function( event ){

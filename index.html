@@ -74,7 +74,9 @@
 	</div>
 </div>
 <footer>
-	Brought to you by <a href="http://www.ludovicmeyer.com">Ludovic Meyer</a> and <a href="http://www.pixel-cookers.com">Pixel Cookers</a> | Hosted by <a href="https://github.com/lmeyer/LoL-Timers">Github</a> | <a data-toggle="modal" href="#helpModal" href="">Help</a> | <a data-toggle="modal" href="#commentModal" href="">Comments</a> | <span id="connected">0</span> connected
+	Brought to you by <a href="http://www.ludovicmeyer.com">Ludovic Meyer</a> and <a href="http://www.pixel-cookers.com">Pixel Cookers</a> | Hosted by <a href="https://github.com/lmeyer/LoL-Timers">Github</a> | <a data-toggle="modal" href="#helpModal" href="">Help</a> | <a data-toggle="modal" href="#commentModal" href="">Comments</a>
+    <br />
+    <span id="connected">0</span> connected | <a data-toggle="modal" href="#syncModal" href="">Synchronize map</a>
 </footer>
 
 <div class="modal fade" id="helpModal">
@@ -100,6 +102,38 @@
   <div class="modal-footer">
     <a href="#" data-dismiss="modal" class="btn">Close</a>
   </div>
+</div>
+
+<div class="modal fade" id="syncModal">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Map synchronization <small>(Beta)</small></h3>
+    </div>
+    <div class="modal-body">
+        <h2>How it works ?</h2>
+        <p>Generate a custom link with the button bellow.</p>
+        <p>Click on it to create a new lol-timers instance. <strong>Share this url with your teammates</strong>.</p>
+        <p>You can see how many users are connected to the current instance at the bottom of the page.</p>
+
+        <div class="well">
+            <button class="btn btn-info" type="button" id="generate-sync-url">Generate</button>
+            <a id="sync-url" class="hide"></a>
+            <div id="private-instance" class="hide">
+                <p>You are currently in a private instance. Please return to <a href="http://lol-timers.com">http://lol-timers.com</a> if you want to create another one.</p>
+            </div>
+        </div>
+        <h3>Current instance QRCode</h3>
+        <p>Flash it with your smartphone.</p>
+        <div class="well">
+            <div id="qrcode"></div>
+            <div id="qrcode-public" class="hide">
+                You are not in the public instance. Please generate a private one and go in it.
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn">Close</a>
+    </div>
 </div>
 
 <div class="modal fade" id="commentModal">
@@ -146,6 +180,7 @@
 <script src="js/jquery.countdown.min.js"></script>
 <script src="js/jquery.rightClick.js"></script>
 <script src="js/jquery.cookie.js"></script>
+<script src="js/qrcode.min.js"></script>
 <script src="/nodeserver/socket.io/socket.io.js"></script>
 <script src="js/script.js"></script>
 
