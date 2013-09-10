@@ -14,6 +14,13 @@ Please visit http://www.lol-timers.com
 
 ### Changelog
 
+1.4 (2013-09-11)
+
+- Map Synchronization
+- Create private room and share the URL
+- QRCode generation for easy smartphone access
+- Buff timers (when monster timer is started, icon changes for buff duration)
+
 1.3 (2013-09-08)
 - Timers duration updated according to new Jungle
 - Sounds when a timers ends up (wards and monsters sounds are different)

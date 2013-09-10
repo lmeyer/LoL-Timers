@@ -173,7 +173,7 @@
 				$(this).addClass('highlight');
 				//Play sound before destroy the countdown
 				if(!$.cookie('mute')) {
-					if(elem.hasClass('wards')) {
+					if($(this).hasClass('wards')) {
 						var new_warddown = $('#warddown').clone();
 						new_warddown.get(0).play();
 					} else {
