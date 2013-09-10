@@ -171,6 +171,16 @@
 			if ($.countdown.periodsToSeconds(periods) == 5) {
 				$(this).effect('pulsate', 1000);
 				$(this).addClass('highlight');
+				//Play sound before destroy the countdown
+				if(!$.cookie('mute')) {
+					if(elem.hasClass('wards')) {
+						var new_warddown = $('#warddown').clone();
+						new_warddown.get(0).play();
+					} else {
+						var new_timesup = $('#timesup').clone();
+						new_timesup.get(0).play();
+					}
+				}
 			}
 		}
 
@@ -184,17 +194,6 @@
 
 		function timesUp(elem) {
 			if(elem == null ) elem = $(this);
-
-			//Play sound before destroy the countdown
-			if(!$.cookie('mute')) {
-				if(elem.hasClass('wards')) {
-					var new_warddown = $('#warddown').clone();
-					new_warddown.get(0).play();
-				} else {
-					var new_timesup = $('#timesup').clone();
-					new_timesup.get(0).play();
-				}
-			}
 			cdDestroy(elem);
 		}
 
@@ -236,6 +235,13 @@
 
 		socket.on('connected', function(connected){
 			$('#connected').html(connected);
+		});
+		socket.on('join', function(connected){
+			var join_sound = $('#join').clone();
+
+			if(!$.cookie('mute')) {
+				join_sound.get(0).play();
+			}
 		});
 		socket.on('launchCd', function(data){
 			launchCd(data.clickType, data.elemId);

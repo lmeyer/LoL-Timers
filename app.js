@@ -53,7 +53,10 @@ io.sockets.on('connection', function (socket) {
 
 		socket.join(socket.room);
 		connected[socket.room] = connected[socket.room]+1
-		io.sockets.in(socket.room).emit('connected', connected[socket.room])
+		io.sockets.in(socket.room).emit('connected', connected[socket.room]);
+		if(socket.room != default_room) {
+			socket.broadcast.to(socket.room).emit('join');
+		}
 		console.log('rooms :' + Object.keys(connected).length);
 		console.log('total :' + totalize(connected));
 		console.log(connected);
