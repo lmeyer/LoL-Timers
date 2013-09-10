@@ -4,6 +4,14 @@
 var io = require('socket.io').listen(8080)
 var connected = {};
 var default_room = 'default';
+function totalize(arr){
+	var key, count = 0;
+	for(key in arr) {
+		count += arr[key];
+	}
+	return count;
+};
+
 io.set('log level', 1); // reduce logging
 io.sockets.on('connection', function (socket) {
 
@@ -14,7 +22,14 @@ io.sockets.on('connection', function (socket) {
 	socket.on('disconnect', function(){
 		socket.leave(socket.room);
 		connected[socket.room] = connected[socket.room]-1
+		if(!connected[socket.room]) {
+			delete connected[socket.room];
+		}
 		io.sockets.in(socket.room).emit('connected', connected[socket.room])
+		console.log('rooms :' + Object.keys(connected).length);
+		console.log('total :' + totalize(connected));
+		console.log(connected);
+		console.log('---------------------------------------');
 	});
 
 	/**
@@ -39,7 +54,10 @@ io.sockets.on('connection', function (socket) {
 		socket.join(socket.room);
 		connected[socket.room] = connected[socket.room]+1
 		io.sockets.in(socket.room).emit('connected', connected[socket.room])
-		console.log(socket.room + ' : ' + connected[socket.room]);
+		console.log('rooms :' + Object.keys(connected).length);
+		console.log('total :' + totalize(connected));
+		console.log(connected);
+		console.log('---------------------------------------');
 	});
 
 	/**
@@ -56,5 +74,4 @@ io.sockets.on('connection', function (socket) {
 			socket.broadcast.to(socket.room).emit('createWard', data);
 		}
 	});
-
 });
