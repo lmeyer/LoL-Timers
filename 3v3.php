@@ -10,8 +10,8 @@
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
 <div role="main">
+    <h1 class="ir logo">League of Legends Timers</h1>
     <div class="map jungle">
-        <h1 class="ir logo">League of Legends Timers</h1>
         <img src="img/jungle.jpg" class="bg" alt="" title="" />
         <div class="sound-control"></div>
         <div id="jvilemaw" class="cd vilemaw" attr-cd="vilemaw"></div>
