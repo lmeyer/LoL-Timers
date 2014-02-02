@@ -20,17 +20,20 @@
 			blue      : 300,
 			red       : 300,
 
+            vilemaw   : 300,
 			dragon    : 360,
 			nashor    : 420,
 
 			ordertower: 300,
 			chaostower: 300,
+            altar: 90,
 
 			buffs     :
 			{
 				blue  : 150,
 				red   : 150,
-				nashor: 240
+				nashor: 240,
+                vilemaw   : 120
 			},
 
 			wards     : 180,
@@ -107,15 +110,15 @@
 
 		$(".map").click(function( event ) {
 			var id = (new Date).getTime();
-			socket.emit('createWard', {
-				canCreate: $(event.target).hasClass('map'),
+            socket.emit('createWard', {
+				canCreate: $(event.target).hasClass('bg'),
 				id     : id,
 				pageX  : event.pageX,
 				pageY  : event.pageY,
 				offsetLeft : this.offsetLeft,
 				offsetTop: this.offsetTop
 			});
-			createWard( $(event.target).hasClass('map'), id, event.pageX, event.pageY, this.offsetLeft, this.offsetTop );
+			createWard( $(event.target).hasClass('bg'), id, event.pageX, event.pageY, this.offsetLeft, this.offsetTop );
 		});
 
 		function launchCd(clickType, elemId) {
@@ -128,7 +131,8 @@
 					}
 					break;
 				default:
-					if(elem.hasClass('blue') || elem.hasClass('nashor') || elem.hasClass('red')){
+                    var buff = timers['buffs'][elem.attr('attr-cd')];
+					if(buff !== undefined){
 						elem.addClass('buff');
 					}
 					if(elem.hasClass('explorer')){
@@ -147,8 +151,8 @@
 		function createWard ( canCreate, id, pageX, pageY, offsetLeft, offsetTop ) {
 			if(!canCreate) return;
 
-			var left = pageX - 12 - offsetLeft;
-			var top = pageY - 12 - offsetTop;
+			var left = pageX - offsetLeft;
+			var top = pageY - offsetTop;
 
 			var new_ward = $('<div class="cd wards" id="'+id+'" attr-cd="wards" style="left:'+left+'px;top:'+top+'px"></div>');
 			var new_wardup = $('#wardup').clone();

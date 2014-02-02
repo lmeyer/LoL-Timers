@@ -4,42 +4,48 @@
    Author: Ludovic Meyer
    ========================================================================== */
 
-body{
-  background: #000 url("../img/bg.jpg") no-repeat center top;
+body {
+  background: #000;
+}
+
+.logo{
+  .hide-text;
+  background: url("../img/logo.png") no-repeat left top;
+  height: 100px;
+  left: 20px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 20px;
+  width: 200px;
+  z-index: 3;
 }
 
 .map{
-  &.rift{
-    background: url("../img/rift.png");
-    height: 770px;
-    margin: auto;
-    position: relative;
-    width: 770px;
+  margin: auto;
+  position: relative;
+  z-index: 2;
+  img.bg {
+    width: 100%;
+  }
+}
+
+.sound-control {
+  .border-radius(16px);
+  .square(32px);
+  .transition(all 150ms linear);
+  background: rgba(255, 255, 255, 0.5) url("../img/unmuted.png") no-repeat center center;
+  cursor: pointer;
+  position: absolute;
+  right: 57px;
+  top: 42px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.8);
   }
 
-  .logo{
-    .hide-text;
-    background: url("../img/logo.png") no-repeat left top;
-    height: 100px;
-    left: -80px;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 5px;
-    width: 200px;
-  }
-
-  .sound-control {
-    .square(32px);
-    background: url("../img/unmuted.png") no-repeat center center;
-    cursor: pointer;
-    position: absolute;
-    right: 57px;
-    top: 42px;
-
-    &.muted {
-      background-image: url("../img/muted.png");
-    }
+  &.muted {
+    background-image: url("../img/muted.png");
   }
 }
 
@@ -51,6 +57,7 @@ body{
   font-weight: bold;
   height: 48px;
   line-height: 48px;
+  margin: -24px;
   position: absolute;
   text-align: center;
   width: 48px;
@@ -110,10 +117,14 @@ body{
   &.chaostower{
     background-image: url("../img/chaostower.png");
   }
+  &.vilemaw {
+    background-image: url("../img/vilemaw.png");
+  }
   &.wards{
     height: 24px;
     color: darkred;
     line-height: 24px;
+    margin: -12px;
     width: 24px;
     background-image: url("../img/wards.png");
     &.pink{
@@ -128,87 +139,6 @@ body{
     span{
       margin: 20px 0 0 -3px;
     }
-  }
-
-  &#bblue{
-    bottom: 400px;
-    left: 210px;
-  }
-  &#tblue{
-    right: 189px;
-    top: 383px;
-  }
-
-  &#dragon{
-    bottom: 238px;
-    right: 235px;
-  }
-
-  &#bgolems{
-    bottom: 140px;
-    left: 425px;
-  }
-  &#tgolems{
-    right: 400px;
-    top: 120px;
-  }
-
-  &#nashor{
-    top: 210px;
-    left: 260px;
-  }
-
-  &#bred{
-    bottom: 214px;
-    right: 331px;
-  }
-  &#tred{
-    left: 350px;
-    top: 195px;
-  }
-
-  &#bwolves{
-    bottom: 333px;
-    left: 221px;
-  }
-  &#twolves{
-    right: 197px;
-    top: 309px;
-  }
-
-  &#bwraiths{
-    bottom: 282px;
-    right: 373px;
-  }
-  &#twraiths{
-    left: 390px;
-    top: 260px;
-  }
-
-  &#chaostower1{
-    right: 78px;
-    top: 162px;
-  }
-  &#chaostower2{
-    right: 168px;
-    top: 144px;
-  }
-  &#chaostower3{
-    right: 180px;
-    top: 60px;
-  }
-
-  &#ordertower1{
-    bottom: 192px;
-    left: 97px;
-  }
-  &#ordertower2{
-    bottom: 176px;
-    left: 183px;
-  }
-  &#ordertower3{
-    bottom: 85px;
-    left: 198px;
   }
 }
 
@@ -227,5 +157,8 @@ footer{
   }
 }
 
+
+@import "rift.less";
+@import "jungle.less";
 @import "media-queries.less";
 @import "print.less";

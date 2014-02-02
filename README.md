@@ -12,7 +12,19 @@ LoL Timers is a tool to calculate respawn time in jungle for the Game [League of
 
 Please visit http://www.lol-timers.com
 
+## Installation
+
+1. Clone the in a webserver
+2. Run `npm install` command
+3. Add proxy config to your http conf (from :8080 to /nodeserver)
+4. Run `node app.js` command
+
 ### Changelog
+
+1.5 (2014-02-02)
+
+- 3v3 map support
+-
 
 1.4 (2013-09-11)
 
@@ -38,3 +50,5 @@ Please visit http://www.lol-timers.com
 
 1.0 (2012-04-08)
 - Initial release
+
+[![NPM version](https://badge.fury.io/js/socket.io.png)](http://badge.fury.io/js/socket.io)
