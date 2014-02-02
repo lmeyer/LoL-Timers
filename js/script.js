@@ -110,15 +110,19 @@
 
 		$(".map").click(function( event ) {
 			var id = (new Date).getTime();
+            var width = $(".map").width();
+            var height = $(".map").height();
             socket.emit('createWard', {
 				canCreate: $(event.target).hasClass('bg'),
 				id     : id,
 				pageX  : event.pageX,
 				pageY  : event.pageY,
 				offsetLeft : this.offsetLeft,
-				offsetTop: this.offsetTop
+				offsetTop: this.offsetTop,
+                width: width,
+                height: height
 			});
-			createWard( $(event.target).hasClass('bg'), id, event.pageX, event.pageY, this.offsetLeft, this.offsetTop );
+			createWard( $(event.target).hasClass('bg'), id, event.pageX, event.pageY, this.offsetLeft, this.offsetTop, width, height);
 		});
 
 		function launchCd(clickType, elemId) {
@@ -148,13 +152,15 @@
 			}
 		}
 
-		function createWard ( canCreate, id, pageX, pageY, offsetLeft, offsetTop ) {
+		function createWard ( canCreate, id, pageX, pageY, offsetLeft, offsetTop, width, height ) {
 			if(!canCreate) return;
 
 			var left = pageX - offsetLeft;
 			var top = pageY - offsetTop;
+            left = left / width * 100;
+            top = top / height * 100;
 
-			var new_ward = $('<div class="cd wards" id="'+id+'" attr-cd="wards" style="left:'+left+'px;top:'+top+'px"></div>');
+			var new_ward = $('<div class="cd wards" id="'+id+'" attr-cd="wards" style="left:'+left+'%;top:'+top+'%"></div>');
 			var new_wardup = $('#wardup').clone();
 
 			if(!$.cookie('mute')) {
@@ -251,7 +257,7 @@
 			launchCd(data.clickType, data.elemId);
 		});
 		socket.on('createWard', function(data){
-			createWard( data.canCreate, data.id, data.pageX, data.pageY, data.offsetLeft, data.offsetTop );
+			createWard( data.canCreate, data.id, data.pageX, data.pageY, data.offsetLeft, data.offsetTop, data.width, data.height);
 		});
 	});
 })(jQuery);
