@@ -15,6 +15,7 @@
         <img src="img/jungle.jpg" class="bg" alt="" title="" />
         <div class="sound-control"></div>
         <div id="jvilemaw" class="cd vilemaw" attr-cd="vilemaw"></div>
+        <div id="heal" class="cd heal" attr-cd="heal"></div>
 
         <div id="tjgolems" class="cd golems" attr-cd="golems"></div>
         <div id="bjgolems" class="cd golems" attr-cd="golems"></div>

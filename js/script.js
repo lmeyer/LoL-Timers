@@ -27,6 +27,7 @@
 			ordertower: 300,
 			chaostower: 300,
             altar: 90,
+            heal: 90,
 
 			buffs     :
 			{
@@ -109,6 +110,9 @@
 		});
 
 		$(".map").click(function( event ) {
+            if($(this).parent().parent().hasClass('jungle')) {
+                return; // No ward on 3v3
+            }
 			var id = (new Date).getTime();
             var width = $(".map").width();
             var height = $(".map").height();
